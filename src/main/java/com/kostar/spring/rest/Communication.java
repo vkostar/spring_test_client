@@ -40,11 +40,24 @@ public class Communication {
     }
 
     public void saveEmployee(Employee employee) {
+        int id = employee.getId();
 
+        if (id == 0) {
+            ResponseEntity<String> responseEntity = restTemplate.postForEntity(URL, employee, String.class);
+            System.out.println("new employee added");
+            System.out.println(responseEntity.getBody());
+        } else {
+
+            restTemplate.put(URL, employee);
+            System.out.println("employee with id " + id + " was updated");
+        }
 
     }
 
     public void deleteEmployee(int id) {
+
+        restTemplate.delete(URL+"/"+id);
+        System.out.println("employee with id " + id + " was deleted");
 
 
     }
